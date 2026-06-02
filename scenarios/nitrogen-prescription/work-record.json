@@ -1,0 +1,143 @@
+{
+  "$schema": "https://adaptstandard.org/root/2.0.0",
+  "id": "wr-nitrogen-prescription-2026-001",
+  "name": "Variable Rate Nitrogen Application — North Quarter Section 14",
+  "description": "Reference ADAPT Standard v2.0.0 WorkRecord demonstrating all seven AgDataBOM ContextItems. Variable-rate nitrogen prescription applied to a 160-acre corn field. Governed under DataBOM_PrescriptionDelivery purpose with agronomist-authored prescription.",
+  "fieldId": "field-north-quarter-s14",
+  "cropZoneId": "cropzone-corn-2026-s14",
+  "crop": "Corn",
+  "cropYear": 2026,
+  "startTime": "2026-05-15T06:30:00Z",
+  "endTime": "2026-05-15T14:45:00Z",
+  "contextItems": [
+    {
+      "code": 9001,
+      "element": "stewardshipResponsibility",
+      "value": "PSG_AgCISP_Custodian_v1",
+      "description": "AgCISP custodial pipeline — Pinnacle Systems Group LLC acting as data custodian under AgDataBOM Data Custodian Agreement PSG-AGMT-2026-001"
+    },
+    {
+      "code": 9002,
+      "element": "sensitivityClassification",
+      "value": "AGRONOMIC_SENSITIVE",
+      "description": "Prescription data reflects agronomist intellectual work product and producer field variability. Elevated above PRODUCER_SENSITIVE due to prescription IP."
+    },
+    {
+      "code": 9003,
+      "element": "intendedProcessingPurpose",
+      "value": "DataBOM_PrescriptionDelivery",
+      "description": "Prescription delivery to field equipment task controller. Governance governs the prescription record; not the equipment command stream.",
+      "xacmlRuleRef": "urn:agcisp:xacml:rule:prescription-delivery-permit",
+      "bizStep": "urn:epcglobal:cbv:bizstep:inspecting"
+    },
+    {
+      "code": 9004,
+      "element": "authorizedRecipientRoles",
+      "value": "PRODUCER,AGRONOMIST",
+      "description": "Lender and Regulator excluded. Prescription IP belongs to agronomist. Producer has operational access. No secondary commercial use authorized.",
+      "excludedRoles": ["LENDER", "REGULATOR", "RESEARCHER_ANONYMIZED"]
+    },
+    {
+      "code": 9005,
+      "element": "retentionExpectation",
+      "value": "P7Y",
+      "description": "Seven-year retention per USDA FSA crop records requirement. ISO 8601 duration format.",
+      "regulatoryBasis": "7 CFR Part 1400 — USDA FSA farm records retention"
+    },
+    {
+      "code": 9006,
+      "element": "originatorRole",
+      "value": "ZTI-001:PRODUCER:Kevin_Kenney_Farm_LLC",
+      "description": "Data originator: ZTI device serial 001 installed on John Deere 8R tractor operated by Kevin Kenney Farm LLC. Hardware attestation via ATECC608B secure element.",
+      "deviceId": "zti-msm8916-001",
+      "hardwareRootOfTrust": "ATECC608B:BGA153:I2C-0x60"
+    },
+    {
+      "code": 9007,
+      "element": "dataProvenanceChain",
+      "value": "git://github.com/pinnaclesystemsgroup/Zero-Trust-Interceptor/commit/latest",
+      "description": "AgCISP git ledger custody anchor. Commit hash populated by AgCISP pipeline post-ATECC608B attestation. Hyperledger Fabric anchor pending Phase I deployment.",
+      "agcispNode": "100.77.203.18",
+      "conventionalCommitType": "adapt(inbound):"
+    }
+  ],
+  "attestation": {
+    "hardwareRootOfTrustIdentifier": "ATECC608B:BGA153:I2C-0x60",
+    "rawDataHash": "sha256:a3f4b2c1d5e6789012345678901234567890abcdef1234567890abcdef123456",
+    "ecdsaSignature": "3045022100b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8",
+    "signedAt": "2026-05-15T06:30:01Z",
+    "firmwareVersion": "v11",
+    "firmwareLines": 15458,
+    "firmwareTests": 256
+  },
+  "operations": [
+    {
+      "id": "op-vr-nitrogen-001",
+      "type": "Application",
+      "description": "Variable rate liquid nitrogen application per agronomist prescription zones",
+      "startTime": "2026-05-15T06:30:00Z",
+      "endTime": "2026-05-15T14:45:00Z",
+      "equipmentId": "jd-8r-410-sn-1RW8R410XPPC123456",
+      "implementId": "hagie-slx14-applicator",
+      "product": {
+        "name": "28% UAN Solution",
+        "epa": "N/A",
+        "type": "Fertilizer"
+      },
+      "prescriptionZones": [
+        {
+          "zoneId": "zone-high-om",
+          "areaAcres": 42.3,
+          "targetRateLbsNPerAcre": 140,
+          "appliedRateLbsNPerAcre": 141.2,
+          "soilOM": "high"
+        },
+        {
+          "zoneId": "zone-medium-om",
+          "areaAcres": 68.7,
+          "targetRateLbsNPerAcre": 160,
+          "appliedRateLbsNPerAcre": 159.8,
+          "soilOM": "medium"
+        },
+        {
+          "zoneId": "zone-low-om",
+          "areaAcres": 49.0,
+          "targetRateLbsNPerAcre": 180,
+          "appliedRateLbsNPerAcre": 180.5,
+          "soilOM": "low"
+        }
+      ],
+      "totalAreaAcres": 160.0,
+      "averageRateLbsNPerAcre": 161.4,
+      "contextItems": [
+        {
+          "code": 9003,
+          "element": "intendedProcessingPurpose",
+          "value": "DataBOM_PrescriptionDelivery",
+          "note": "Operation-level purpose confirmation inherits WorkRecord governance"
+        }
+      ]
+    }
+  ],
+  "spatialData": {
+    "fieldBoundary": "POLYGON((-96.7 41.2, -96.6 41.2, -96.6 41.1, -96.7 41.1, -96.7 41.2))",
+    "coordinateSystem": "EPSG:4326",
+    "privacyNote": "Boundary represents masked bounding box per ZTI edge-privacy filter. Raw field boundary withheld per LB525 Section 4 location data provisions.",
+    "geoParquetRef": "s3://agcisp-masked/2026/s14-boundary-masked.parquet"
+  },
+  "aggatewayRefs": {
+    "adaptStandardVersion": "2.0.0",
+    "wg35": "AgGateway WG35 DataBOM Stewardship Metadata Working Committee",
+    "tcSubmission": "adapt.feedback@aggateway.org"
+  },
+  "nistRefs": {
+    "ir8536": "https://doi.org/10.6028/NIST.IR.8536.2pd",
+    "sct4afm": "https://github.com/usnistgov/SCT4AFM",
+    "cyberPhysicalLinkSection": "NIST IR 8536 §2.1"
+  },
+  "legalRefs": {
+    "lb525": "Nebraska LB525 Agricultural Data Privacy Act, signed April 14 2026, effective January 1 2027",
+    "ndpa": "Nebraska Data Privacy Act §§87-1101 through 87-1130",
+    "retentionBasis": "7 CFR Part 1400"
+  }
+}

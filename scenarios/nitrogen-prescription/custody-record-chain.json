@@ -1,0 +1,155 @@
+{
+  "$id": "https://github.com/pinnaclesystemsgroup/agdatabom-crisp-dm/scenarios/nitrogen-prescription/custody-record-chain.json",
+  "title": "AgDataBOM CustodyRecord Chain — Nitrogen Prescription Scenario",
+  "description": "Six-phase CustodyRecord chain demonstrating dataProvenanceChain (9007) progression for WorkRecord wr-nitrogen-prescription-2026-001. Each phase corresponds to a CRISP-DM lifecycle stage and an AgCISP Conventional Commit event.",
+  "workRecordId": "wr-nitrogen-prescription-2026-001",
+  "version": "1.0.0",
+  "issued": "2026-06-02",
+  "agcispNode": "100.77.203.18",
+  "custodyChain": [
+    {
+      "phase": 1,
+      "crispDmPhase": "BusinessUnderstanding",
+      "eventType": "FieldCapture",
+      "conventionalCommit": "adapt(inbound):",
+      "description": "ZTI device captures raw ISOBUS frames from vehicle CAN bus during nitrogen application. ATECC608B signs SHA-256 digest before data touches storage. Data enters AgCISP custody.",
+      "timestamp": "2026-05-15T06:30:01Z",
+      "custodian": "PSG_AgCISP_Custodian_v1",
+      "device": "zti-msm8916-001",
+      "attestation": {
+        "hardwareRootOfTrust": "ATECC608B:BGA153:I2C-0x60",
+        "rawDataHash": "sha256:a3f4b2c1d5e6789012345678901234567890abcdef1234567890abcdef123456",
+        "ecdsaSignature": "3045022100b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8"
+      },
+      "transport": "rclone/SFTP",
+      "agcispCommitHash": "adapt(inbound): zti-001 nitrogen-prescription 2026-05-15",
+      "governanceState": {
+        "sensitivityClassification": "AGRONOMIC_SENSITIVE",
+        "intendedProcessingPurpose": "DataBOM_PrescriptionDelivery",
+        "authorizedRecipientRoles": ["PRODUCER", "AGRONOMIST"],
+        "custodyTransferAuthorized": false
+      }
+    },
+    {
+      "phase": 2,
+      "crispDmPhase": "DataUnderstanding",
+      "eventType": "ValidationGate",
+      "conventionalCommit": "adapt(inbound):",
+      "description": "GitHub Actions adapt-validate.yml CI/CD gate validates WorkRecord against ADAPT Standard v2.0.0 JSON schema. All seven AgDataBOM ContextItems verified present and conformant. Commit accepted to main branch.",
+      "timestamp": "2026-05-15T06:35:00Z",
+      "custodian": "PSG_AgCISP_Custodian_v1",
+      "validationResult": "PASS",
+      "schemaRef": "https://adaptstandard.org/root/2.0.0",
+      "cicdWorkflow": "adapt-validate.yml",
+      "agcispCommitHash": "adapt(inbound): validated wr-nitrogen-prescription-2026-001",
+      "governanceState": {
+        "sensitivityClassification": "AGRONOMIC_SENSITIVE",
+        "intendedProcessingPurpose": "DataBOM_PrescriptionDelivery",
+        "authorizedRecipientRoles": ["PRODUCER", "AGRONOMIST"],
+        "custodyTransferAuthorized": false
+      }
+    },
+    {
+      "phase": 3,
+      "crispDmPhase": "DataPreparation",
+      "eventType": "ProducerAccess",
+      "conventionalCommit": "adapt(outbound):",
+      "description": "Producer accesses WorkRecord via AgDataBOM Studio SPA. XACML PDP evaluates request against purpose-phase-matrix. PERMIT decision returned for PRODUCER role under DataBOM_PrescriptionDelivery purpose at DataPreparation phase. Geospatial masking applied to outbound payload.",
+      "timestamp": "2026-05-15T18:00:00Z",
+      "custodian": "PSG_AgCISP_Custodian_v1",
+      "requestingRole": "PRODUCER",
+      "xacmlDecision": "PERMIT",
+      "xacmlRuleRef": "urn:agcisp:xacml:rule:prescription-delivery-permit",
+      "agcispCommitHash": "adapt(outbound): producer-access wr-nitrogen-prescription-2026-001",
+      "governanceState": {
+        "sensitivityClassification": "AGRONOMIC_SENSITIVE",
+        "intendedProcessingPurpose": "DataBOM_PrescriptionDelivery",
+        "authorizedRecipientRoles": ["PRODUCER", "AGRONOMIST"],
+        "custodyTransferAuthorized": true,
+        "transferredTo": "PRODUCER"
+      }
+    },
+    {
+      "phase": 4,
+      "crispDmPhase": "Modeling",
+      "eventType": "AgronomistAccess",
+      "conventionalCommit": "adapt(outbound):",
+      "description": "Agronomist accesses WorkRecord to verify prescription adherence and generate season-end report. XACML PDP evaluates AGRONOMIST role. PERMIT at Modeling phase for PrescriptionDelivery purpose. Derived recommendation outputs governed separately under DataBOM_AgronomicAnalysis.",
+      "timestamp": "2026-10-01T09:00:00Z",
+      "custodian": "PSG_AgCISP_Custodian_v1",
+      "requestingRole": "AGRONOMIST",
+      "xacmlDecision": "PERMIT",
+      "xacmlRuleRef": "urn:agcisp:xacml:rule:prescription-delivery-permit",
+      "agcispCommitHash": "adapt(outbound): agronomist-access wr-nitrogen-prescription-2026-001",
+      "governanceState": {
+        "sensitivityClassification": "AGRONOMIC_SENSITIVE",
+        "intendedProcessingPurpose": "DataBOM_PrescriptionDelivery",
+        "authorizedRecipientRoles": ["PRODUCER", "AGRONOMIST"],
+        "custodyTransferAuthorized": true,
+        "transferredTo": "AGRONOMIST",
+        "note": "Derived outputs require separate DataBOM_AgronomicAnalysis WorkRecord"
+      }
+    },
+    {
+      "phase": 5,
+      "crispDmPhase": "Evaluation",
+      "eventType": "RetentionCheck",
+      "conventionalCommit": "custody(anchor):",
+      "description": "Annual retention policy evaluation. retentionExpectation P7Y — record is 0.4 years old. Retention clock running. Hyperledger Fabric anchor written to confirm custody continuity. No purge action required.",
+      "timestamp": "2026-12-31T00:00:00Z",
+      "custodian": "PSG_AgCISP_Custodian_v1",
+      "retentionExpectation": "P7Y",
+      "retentionAge": "P0Y7M",
+      "retentionStatus": "ACTIVE",
+      "fabricAnchorTx": "pending-phase-i-deployment",
+      "agcispCommitHash": "custody(anchor): annual-retention-check 2026",
+      "governanceState": {
+        "sensitivityClassification": "AGRONOMIC_SENSITIVE",
+        "intendedProcessingPurpose": "DataBOM_PrescriptionDelivery",
+        "authorizedRecipientRoles": ["PRODUCER", "AGRONOMIST"],
+        "custodyTransferAuthorized": false,
+        "purgeScheduled": false,
+        "purgeDate": "2033-05-15"
+      }
+    },
+    {
+      "phase": 6,
+      "crispDmPhase": "Deployment",
+      "eventType": "ProvenanceChainFinalization",
+      "conventionalCommit": "custody(anchor):",
+      "description": "Full dataProvenanceChain finalized. All six CRISP-DM phases traversed. Chain demonstrates complete governance lifecycle from ZTI hardware capture through validation, producer access, agronomist access, retention evaluation, and final provenance anchor. Record available for NIST SCT4AFM ontology ingestion via adapt_to_epcis.py.",
+      "timestamp": "2026-12-31T01:00:00Z",
+      "custodian": "PSG_AgCISP_Custodian_v1",
+      "dataProvenanceChain": "git://github.com/pinnaclesystemsgroup/Zero-Trust-Interceptor/commit/latest",
+      "epcisOutputRef": "adapt/validation/adapt_to_epcis.py",
+      "sct4afmOntologyTarget": "https://github.com/usnistgov/SCT4AFM/tree/main/grain-traceability-ontology",
+      "agcispCommitHash": "custody(anchor): provenance-chain-finalized wr-nitrogen-prescription-2026-001",
+      "governanceState": {
+        "sensitivityClassification": "AGRONOMIC_SENSITIVE",
+        "intendedProcessingPurpose": "DataBOM_PrescriptionDelivery",
+        "authorizedRecipientRoles": ["PRODUCER", "AGRONOMIST"],
+        "custodyTransferAuthorized": false,
+        "chainComplete": true,
+        "totalPhases": 6
+      }
+    }
+  ],
+  "chainSummary": {
+    "totalPhases": 6,
+    "crispDmPhasesTraversed": [
+      "BusinessUnderstanding",
+      "DataUnderstanding",
+      "DataPreparation",
+      "Modeling",
+      "Evaluation",
+      "Deployment"
+    ],
+    "conventionalCommitTypes": ["adapt(inbound):", "adapt(outbound):", "custody(anchor):"],
+    "permittedAccessEvents": 2,
+    "deniedAccessEvents": 0,
+    "retentionExpectation": "P7Y",
+    "purgeDate": "2033-05-15",
+    "chainIntegrityVerified": true,
+    "nistIr8536Alignment": "Full Traceability Chain per IR 8536 §3.2 — six Traceability Records linked via AgCISP Conventional Commits"
+  }
+}
