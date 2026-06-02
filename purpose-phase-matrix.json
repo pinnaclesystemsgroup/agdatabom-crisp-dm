@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/pinnaclesystemsgroup/agdatabom-crisp-dm/purpose-phase-matrix.json",
+  "title": "AgDataBOM Purpose-Phase Matrix",
+  "description": "Normative WG35 artifact mapping AgDataBOM IntendedProcessingPurpose values to CRISP-DM lifecycle phases with PERMIT/RESTRICTED/DENY governance decisions and XACML 3.0 rule references. PSG-WG35-2026-001.",
+  "version": "1.0.0",
+  "issued": "2026-06-02",
+  "publisher": "AgGateway WG35 DataBOM Stewardship Metadata Working Committee",
+  "chair": "P. Isaac Riley, Pinnacle Systems Group LLC",
+  "status": "Pre-Ratification Draft",
+  "namespace": "https://agcisp.org/ns/wg35/stewardship#",
+  "contextItemCode": 9003,
+  "contextItemElement": "intendedProcessingPurpose",
+  "crispDmPhases": [
+    "BusinessUnderstanding",
+    "DataUnderstanding",
+    "DataPreparation",
+    "Modeling",
+    "Evaluation",
+    "Deployment"
+  ],
+  "decisions": ["PERMIT", "RESTRICTED", "DENY"],
+  "purposeMatrix": [
+    {
+      "purpose": "DataBOM_HarvestDocumentation",
+      "description": "Documentation of harvest operations for producer records, lender reporting, and supply chain traceability. Primary field operations use case.",
+      "bizStep": "urn:epcglobal:cbv:bizstep:harvesting",
+      "defaultSensitivity": "PRODUCER_SENSITIVE",
+      "phaseDecisions": {
+        "BusinessUnderstanding": "PERMIT",
+        "DataUnderstanding": "PERMIT",
+        "DataPreparation": "PERMIT",
+        "Modeling": "RESTRICTED",
+        "Evaluation": "RESTRICTED",
+        "Deployment": "PERMIT"
+      },
+      "xacmlRuleRef": "urn:agcisp:xacml:rule:harvest-documentation-permit",
+      "authorizedRoles": ["PRODUCER", "AGRONOMIST", "LENDER", "REGULATOR"],
+      "lb525Alignment": "Section 4 — producer operational data; consent required for secondary use"
+    },
+    {
+      "purpose": "DataBOM_PlantingDocumentation",
+      "description": "Documentation of planting operations including seed variety, population, depth, and spatial coverage.",
+      "bizStep": "urn:epcglobal:cbv:bizstep:planting",
+      "defaultSensitivity": "PRODUCER_SENSITIVE",
+      "phaseDecisions": {
+        "BusinessUnderstanding": "PERMIT",
+        "DataUnderstanding": "PERMIT",
+        "DataPreparation": "PERMIT",
+        "Modeling": "RESTRICTED",
+        "Evaluation": "RESTRICTED",
+        "Deployment": "PERMIT"
+      },
+      "xacmlRuleRef": "urn:agcisp:xacml:rule:planting-documentation-permit",
+      "authorizedRoles": ["PRODUCER", "AGRONOMIST", "LENDER"],
+      "lb525Alignment": "Section 4 — producer operational data; seed purchase intent inference risk"
+    },
+    {
+      "purpose": "DataBOM_ApplicationDocumentation",
+      "description": "Documentation of chemical, fertilizer, or biological product applications. Includes as-applied rate, product identity, and spatial coverage.",
+      "bizStep": "urn:epcglobal:cbv:bizstep:applying",
+      "defaultSensitivity": "PRODUCER_SENSITIVE",
+      "phaseDecisions": {
+        "BusinessUnderstanding": "PERMIT",
+        "DataUnderstanding": "PERMIT",
+        "DataPreparation": "RESTRICTED",
+        "Modeling": "RESTRICTED",
+        "Evaluation": "DENY",
+        "Deployment": "RESTRICTED"
+      },
+      "xacmlRuleRef": "urn:agcisp:xacml:rule:application-documentation-restricted",
+      "authorizedRoles": ["PRODUCER", "AGRONOMIST", "REGULATOR"],
+      "lb525Alignment": "Section 4 — input purchase inference; Section 6 — pesticide application regulatory reporting carve-out"
+    },
+    {
+      "purpose": "DataBOM_PrescriptionDelivery",
+      "description": "Delivery of agronomic prescriptions to field equipment. Data flows from FMIS to task controller. Governance governs the prescription record, not the equipment command.",
+      "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
+      "defaultSensitivity": "AGRONOMIC_SENSITIVE",
+      "phaseDecisions": {
+        "BusinessUnderstanding": "PERMIT",
+        "DataUnderstanding": "RESTRICTED",
+        "DataPreparation": "PERMIT",
+        "Modeling": "PERMIT",
+        "Evaluation": "RESTRICTED",
+        "Deployment": "PERMIT"
+      },
+      "xacmlRuleRef": "urn:agcisp:xacml:rule:prescription-delivery-permit",
+      "authorizedRoles": ["PRODUCER", "AGRONOMIST"],
+      "lb525Alignment": "Section 5 — agronomic service provider relationship; prescription IP ownership"
+    },
+    {
+      "purpose": "DataBOM_AgronomicAnalysis",
+      "description": "Agronomic analysis and advisory services. Data used to generate recommendations. Producer retains ownership of underlying operational data.",
+      "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
+      "defaultSensitivity": "AGRONOMIC_SENSITIVE",
+      "phaseDecisions": {
+        "BusinessUnderstanding": "PERMIT",
+        "DataUnderstanding": "PERMIT",
+        "DataPreparation": "PERMIT",
+        "Modeling": "PERMIT",
+        "Evaluation": "PERMIT",
+        "Deployment": "RESTRICTED"
+      },
+      "xacmlRuleRef": "urn:agcisp:xacml:rule:agronomic-analysis-permit",
+      "authorizedRoles": ["PRODUCER", "AGRONOMIST"],
+      "lb525Alignment": "Section 5 — express consent required; derived model outputs not covered by producer consent"
+    },
+    {
+      "purpose": "DataBOM_ResearchAnonymized",
+      "description": "Anonymized research use. Geospatial precision reduced to county level. Producer identity removed. Temporal granularity reduced to crop year.",
+      "bizStep": "urn:epcglobal:cbv:bizstep:sampling",
+      "defaultSensitivity": "PUBLIC",
+      "phaseDecisions": {
+        "BusinessUnderstanding": "PERMIT",
+        "DataUnderstanding": "PERMIT",
+        "DataPreparation": "PERMIT",
+        "Modeling": "PERMIT",
+        "Evaluation": "PERMIT",
+        "Deployment": "PERMIT"
+      },
+      "xacmlRuleRef": "urn:agcisp:xacml:rule:research-anonymized-permit",
+      "authorizedRoles": ["PRODUCER", "AGRONOMIST", "RESEARCHER_ANONYMIZED", "REGULATOR"],
+      "lb525Alignment": "Section 7 — anonymization safe harbor; county-level spatial floor required"
+    },
+    {
+      "purpose": "DataBOM_LenderReporting",
+      "description": "Reporting to agricultural lenders for loan origination, servicing, or crop insurance purposes. Governed by existing FCRA and GLBA frameworks in addition to LB525.",
+      "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
+      "defaultSensitivity": "REGULATORY_SENSITIVE",
+      "phaseDecisions": {
+        "BusinessUnderstanding": "PERMIT",
+        "DataUnderstanding": "PERMIT",
+        "DataPreparation": "PERMIT",
+        "Modeling": "RESTRICTED",
+        "Evaluation": "RESTRICTED",
+        "Deployment": "PERMIT"
+      },
+      "xacmlRuleRef": "urn:agcisp:xacml:rule:lender-reporting-restricted",
+      "authorizedRoles": ["PRODUCER", "LENDER", "REGULATOR"],
+      "lb525Alignment": "Section 8 — financial services carve-out; FCRA overlay; CeR framework integration point"
+    },
+    {
+      "purpose": "DataBOM_RegulatoryCompliance",
+      "description": "Data provided to government regulatory bodies under statutory obligation. DENY at Modeling and Deployment phases prevents regulatory data from re-entering commercial analytics pipelines.",
+      "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
+      "defaultSensitivity": "REGULATORY_SENSITIVE",
+      "phaseDecisions": {
+        "BusinessUnderstanding": "PERMIT",
+        "DataUnderstanding": "PERMIT",
+        "DataPreparation": "PERMIT",
+        "Modeling": "DENY",
+        "Evaluation": "DENY",
+        "Deployment": "DENY"
+      },
+      "xacmlRuleRef": "urn:agcisp:xacml:rule:regulatory-compliance-deny-modeling",
+      "authorizedRoles": ["PRODUCER", "REGULATOR"],
+      "lb525Alignment": "Section 9 — government reporting obligation; secondary commercial use prohibited"
+    }
+  ],
+  "xacmlPolicySetRef": "xacml/agdatabom-policy-set.xml",
+  "adaptStandardRef": "https://adaptstandard.org/root/2.0.0",
+  "nistIr8536Ref": "https://doi.org/10.6028/NIST.IR.8536.2pd",
+  "sct4afmRef": "https://github.com/usnistgov/SCT4AFM",
+  "aggatewayWg": "WG35",
+  "tcSubmissionAddress": "adapt.feedback@aggateway.org"
+}
