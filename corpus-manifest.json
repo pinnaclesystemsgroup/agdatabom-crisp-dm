@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/pinnaclesystemsgroup/agdatabom-crisp-dm/corpus-manifest.json",
+  "title": "AgDataBOM CRISP-DM Corpus Manifest",
+  "description": "Normative artifact index for AgGateway WG35 DataBOM Stewardship Metadata Working Committee. Enumerates all canonical artifacts, their status, document series numbers, and dependency relationships.",
+  "version": "1.0.0",
+  "issued": "2026-06-02",
+  "publisher": "AgGateway WG35 DataBOM Stewardship Metadata Working Committee",
+  "chair": "P. Isaac Riley, Pinnacle Systems Group LLC",
+  "contact": "pinnaclesystemsgroup@gmail.com",
+  "repository": "https://github.com/pinnaclesystemsgroup/agdatabom-crisp-dm",
+  "license": "Apache-2.0",
+  "adaptStandardVersion": "2.0.0",
+  "wg35Status": "Pre-Ratification Draft",
+  "tcSubmissionAddress": "adapt.feedback@aggateway.org",
+  "artifacts": [
+    {
+      "id": "PSG-WG35-2026-001",
+      "title": "AgDataBOM Purpose-Phase Matrix",
+      "path": "purpose-phase-matrix.json",
+      "type": "normative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "Maps eight AgDataBOM IntendedProcessingPurpose values to CRISP-DM lifecycle phases with PERMIT/RESTRICTED/DENY governance decisions and XACML 3.0 rule references. Core normative WG35 artifact.",
+      "dependsOn": [],
+      "referencedBy": [
+        "PSG-WG35-2026-003",
+        "PSG-WG35-2026-005",
+        "PSG-TBM-2026-001"
+      ]
+    },
+    {
+      "id": "PSG-WG35-2026-002",
+      "title": "CRISP-DM Business Understanding Phase Vocabulary",
+      "path": "crisp-dm/business-understanding.json",
+      "type": "normative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "Governance vocabulary for the Business Understanding phase. Defines stewardshipResponsibility (9001) and sensitivityClassification (9002) terms applicable at data origination.",
+      "contextItemCodes": [9001, 9002],
+      "dependsOn": ["PSG-WG35-2026-001"],
+      "referencedBy": ["PSG-WG35-2026-008"]
+    },
+    {
+      "id": "PSG-WG35-2026-002B",
+      "title": "CRISP-DM Data Understanding Phase Vocabulary",
+      "path": "crisp-dm/data-understanding.json",
+      "type": "normative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "Governance vocabulary for the Data Understanding phase. Defines sensitivityClassification (9002) tiered vocabulary and data quality assessment governance.",
+      "contextItemCodes": [9002],
+      "dependsOn": ["PSG-WG35-2026-001"],
+      "referencedBy": ["PSG-WG35-2026-008"]
+    },
+    {
+      "id": "PSG-WG35-2026-002C",
+      "title": "CRISP-DM Data Preparation Phase Vocabulary",
+      "path": "crisp-dm/data-preparation.json",
+      "type": "normative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "Governance vocabulary for the Data Preparation phase. Defines intendedProcessingPurpose (9003) and authorizedRecipientRoles (9004) as declared at data preparation time.",
+      "contextItemCodes": [9003, 9004],
+      "dependsOn": ["PSG-WG35-2026-001"],
+      "referencedBy": ["PSG-WG35-2026-008"]
+    },
+    {
+      "id": "PSG-WG35-2026-002D",
+      "title": "CRISP-DM Modeling Phase Vocabulary",
+      "path": "crisp-dm/modeling.json",
+      "type": "normative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "Governance vocabulary for the Modeling phase. Defines authorizedRecipientRoles (9004) access control model and XACML PolicySet binding.",
+      "contextItemCodes": [9004],
+      "dependsOn": ["PSG-WG35-2026-001", "PSG-WG35-2026-005"],
+      "referencedBy": ["PSG-WG35-2026-008"]
+    },
+    {
+      "id": "PSG-WG35-2026-002E",
+      "title": "CRISP-DM Evaluation Phase Vocabulary",
+      "path": "crisp-dm/evaluation.json",
+      "type": "normative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "Governance vocabulary for the Evaluation phase. Defines retentionExpectation (9005) ISO 8601 duration vocabulary and policy reference terms.",
+      "contextItemCodes": [9005],
+      "dependsOn": ["PSG-WG35-2026-001"],
+      "referencedBy": ["PSG-WG35-2026-008"]
+    },
+    {
+      "id": "PSG-WG35-2026-002F",
+      "title": "CRISP-DM Deployment Phase Vocabulary",
+      "path": "crisp-dm/deployment.json",
+      "type": "normative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "Governance vocabulary for the Deployment phase. Defines originatorRole (9006) identity terms and dataProvenanceChain (9007) URI syntax for AgCISP git ledger anchoring.",
+      "contextItemCodes": [9006, 9007],
+      "dependsOn": ["PSG-WG35-2026-001"],
+      "referencedBy": ["PSG-WG35-2026-008"]
+    },
+    {
+      "id": "PSG-WG35-2026-003",
+      "title": "Nitrogen Prescription Reference Scenario — WorkRecord",
+      "path": "scenarios/nitrogen-prescription/work-record.json",
+      "type": "informative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "Reference ADAPT Standard v2.0.0 WorkRecord with all seven AgDataBOM ContextItems populated. Nitrogen variable-rate prescription scenario covering a 160-acre corn field. Demonstrates governance layer implementation on a real-world field operations record.",
+      "contextItemCodes": [9001, 9002, 9003, 9004, 9005, 9006, 9007],
+      "dependsOn": ["PSG-WG35-2026-001"],
+      "referencedBy": ["PSG-WG35-2026-004", "PSG-TBM-2026-001"]
+    },
+    {
+      "id": "PSG-WG35-2026-004",
+      "title": "Nitrogen Prescription Reference Scenario — CustodyRecord Chain",
+      "path": "scenarios/nitrogen-prescription/custody-record-chain.json",
+      "type": "informative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "Six-phase CustodyRecord chain for the nitrogen prescription scenario. Demonstrates dataProvenanceChain (9007) progression from ZTI field capture through AgCISP validation, agronomist access, lender reporting, and regulatory archive.",
+      "contextItemCodes": [9007],
+      "dependsOn": ["PSG-WG35-2026-003"],
+      "referencedBy": []
+    },
+    {
+      "id": "PSG-WG35-2026-005",
+      "title": "AgDataBOM XACML 3.0 PolicySet",
+      "path": "xacml/agdatabom-policy-set.xml",
+      "type": "normative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "AuthzForce CE compatible XACML 3.0 PolicySet implementing runtime enforcement of purpose-phase-matrix decisions. Eight Policy elements corresponding to eight IntendedProcessingPurpose values. PDP binding for AgDataBOM Studio SPA.",
+      "dependsOn": ["PSG-WG35-2026-001"],
+      "referencedBy": ["PSG-WG35-2026-002D"]
+    },
+    {
+      "id": "PSG-WG35-2026-006",
+      "title": "ADAPT-to-EPCIS 2.0 JSON-LD Translation Engine",
+      "path": "adapt/validation/adapt_to_epcis.py",
+      "type": "informative",
+      "status": "active",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "Automated transformation module converting validated ADAPT Standard WorkRecords to GS1 EPCIS 2.0 JSON-LD payloads for ingestion by NIST SCT4AFM OWL reasoners. Implements sct4afm:cyberPhysicalLink extension mapping ZTI ATECC608B attestation to NIST IR 8536 §2.1 Cyber-Physical Link definition.",
+      "dependsOn": ["PSG-WG35-2026-003"],
+      "referencedBy": ["PSG-TBM-2026-001"],
+      "externalRef": "https://github.com/usnistgov/SCT4AFM"
+    },
+    {
+      "id": "PSG-WG35-2026-007",
+      "title": "ADAPT Standard CI/CD Validation Workflow",
+      "path": "adapt/validation/adapt-validate.yml",
+      "type": "informative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "GitHub Actions workflow enforcing ADAPT Standard JSON schema validation as a CI/CD gate. Rejects commits where WorkRecord ContextItems fail schema conformance. Basis for AgCISP custodial pipeline integrity.",
+      "dependsOn": [],
+      "referencedBy": ["PSG-WG35-2026-006"]
+    },
+    {
+      "id": "PSG-WG35-2026-008",
+      "title": "S632 XSD Content Type to AgDataBOM ContextItem Governance Mapping",
+      "path": "docs/PSG-MAP-2026-001-S632-Mapping.md",
+      "type": "normative",
+      "status": "draft",
+      "version": "1.0.0",
+      "issued": "2026-06-02",
+      "description": "PSG-MAP-2026-001. Maps ANSI/ASABE S632 XSD content types to AgDataBOM ContextItem governance obligations. Positions AgDataBOM as the personal data compliance layer that S632 requires but does not provide. WG35 supporting document for ADAPT TC submission.",
+      "dependsOn": ["PSG-WG35-2026-001"],
+      "referencedBy": [],
+      "externalRef": "https://www.asabe.org/Standards"
+    },
+    {
+      "id": "PSG-TBM-2026-001",
+      "title": "NIST IR 8536 / SCT4AFM Technical Briefing Memorandum",
+      "path": "docs/PSG-TBM-2026-001-Wallace-Briefing-v2.pdf",
+      "type": "informative",
+      "status": "active",
+      "version": "2.0",
+      "issued": "2026-06-02",
+      "description": "Technical Briefing Memorandum to Dr. Evan K. Wallace, NIST Engineering Laboratory / Systems Integration Division. Operationalizing the Cyber-Physical Link: anchoring NIST IR 8536 Meta-Framework and SCT4AFM ontology with non-repudiable agricultural field data from ZTI/AgCISP.",
+      "dependsOn": [
+        "PSG-WG35-2026-001",
+        "PSG-WG35-2026-003",
+        "PSG-WG35-2026-006"
+      ],
+      "referencedBy": [],
+      "externalRefs": [
+        "https://doi.org/10.6028/NIST.IR.8536.2pd",
+        "https://github.com/usnistgov/SCT4AFM",
+        "https://github.com/pinnaclesystemsgroup/Zero-Trust-Interceptor"
+      ]
+    }
+  ],
+  "contextItemRegistry": [
+    {
+      "code": 9001,
+      "element": "stewardshipResponsibility",
+      "crispDmPhase": "BusinessUnderstanding",
+      "required": true,
+      "type": "string",
+      "description": "Identifier of the data custodian responsible for enforcing the governance profile"
+    },
+    {
+      "code": 9002,
+      "element": "sensitivityClassification",
+      "crispDmPhase": "DataUnderstanding",
+      "required": true,
+      "type": "enum",
+      "values": [
+        "PRODUCER_SENSITIVE",
+        "AGRONOMIC_SENSITIVE",
+        "REGULATORY_SENSITIVE",
+        "PUBLIC"
+      ],
+      "description": "Tiered sensitivity classification governing access control tier"
+    },
+    {
+      "code": 9003,
+      "element": "intendedProcessingPurpose",
+      "crispDmPhase": "DataPreparation",
+      "required": true,
+      "type": "enum",
+      "values": [
+        "DataBOM_HarvestDocumentation",
+        "DataBOM_PlantingDocumentation",
+        "DataBOM_ApplicationDocumentation",
+        "DataBOM_PrescriptionDelivery",
+        "DataBOM_AgronomicAnalysis",
+        "DataBOM_ResearchAnonymized",
+        "DataBOM_LenderReporting",
+        "DataBOM_RegulatoryCompliance"
+      ],
+      "description": "Declared permitted processing use case. Drives XACML PolicySet evaluation."
+    },
+    {
+      "code": 9004,
+      "element": "authorizedRecipientRoles",
+      "crispDmPhase": "Modeling",
+      "required": true,
+      "type": "array",
+      "values": [
+        "PRODUCER",
+        "AGRONOMIST",
+        "LENDER",
+        "REGULATOR",
+        "RESEARCHER_ANONYMIZED"
+      ],
+      "description": "Enumeration of roles authorized to receive and act on this data record"
+    },
+    {
+      "code": 9005,
+      "element": "retentionExpectation",
+      "crispDmPhase": "Evaluation",
+      "required": false,
+      "type": "string",
+      "pattern": "^P[0-9]+Y$",
+      "example": "P7Y",
+      "description": "ISO 8601 duration string specifying maximum retention period"
+    },
+    {
+      "code": 9006,
+      "element": "originatorRole",
+      "crispDmPhase": "Deployment",
+      "required": true,
+      "type": "string",
+      "description": "Identity and role of the data originator at point of physical capture. Populated by ZTI hardware pipeline."
+    },
+    {
+      "code": 9007,
+      "element": "dataProvenanceChain",
+      "crispDmPhase": "Deployment",
+      "required": true,
+      "type": "uri",
+      "pattern": "^git://github\\.com/",
+      "description": "Custody URI anchoring the record to the AgCISP git ledger commit hash. Populated by AgCISP pipeline post-attestation."
+    }
+  ]
+}
